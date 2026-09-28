@@ -55,3 +55,36 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 @media(max-width:1050px){header nav{gap:15px;font-size:11px}.author-section{gap:35px}}
 @media(max-width:760px){.speaker-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.music-card{grid-template-columns:150px 1fr;gap:24px;padding:24px}.dj-photo{width:150px;height:180px}.author-section{grid-template-columns:1fr;gap:32px}.author-portrait{max-width:360px;margin-inline:auto}.music-copy h3{font-size:35px}.values{flex-wrap:wrap}}
 @media(max-width:480px){.music-card{grid-template-columns:1fr}.dj-photo{width:100%;height:auto;max-width:260px;margin-inline:auto}.author-copy blockquote{font-size:23px}.hero h1{font-size:clamp(52px,15vw,66px)}}
+
+/* Mobile navigation remains visible if JavaScript is unavailable. */
+.menu-toggle{display:none}
+@media(max-width:760px){
+  header.wrap{height:auto;min-height:88px;flex-wrap:wrap;gap:12px;padding-block:16px;position:relative}
+  header .brand{margin-right:auto}
+  header>.button.small{order:2}
+  header .menu-toggle:not([hidden]){order:3;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;flex-shrink:0;padding:10px;border:1px solid var(--line);border-radius:3px;background:transparent;color:var(--plum);cursor:pointer}
+  .menu-toggle span{display:block;width:20px;height:2px;background:currentColor;transition:transform .2s,opacity .2s}
+  .menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  header #main-navigation{order:4;display:flex;flex-direction:column;gap:0;width:100%;padding-top:12px;border-top:1px solid var(--line);font-size:14px}
+  header #main-navigation a{display:block;padding:12px 6px}
+  header #main-navigation a::after{display:none}
+  header.menu-ready #main-navigation{display:none}
+  header.menu-ready.menu-open #main-navigation{display:flex}
+}
+@media(max-width:360px){header>.button.small{padding:9px 10px;gap:7px}header.wrap{gap:8px}header .brand small{letter-spacing:.7px}}
+
+header .mobile-ticket-link{display:none}
+@media(max-width:760px){header>.button.small{display:none}header #main-navigation .mobile-ticket-link{display:block;color:var(--purple);font-weight:600}}
+
+/* Keep mobile navigation available while scrolling. */
+@media(max-width:760px){
+  html{scroll-padding-top:108px}
+  body.mobile-nav-ready{padding-top:88px}
+  header.wrap.menu-ready{position:fixed;inset:0 0 auto;width:100%;height:88px;min-height:88px;padding:16px 20px;flex-wrap:nowrap;background:var(--cream);z-index:10;box-shadow:0 3px 14px #3516410a}
+  header.menu-ready #main-navigation{position:absolute;top:100%;left:0;width:100%;margin:0;padding:12px 20px 20px;background:var(--cream);border-bottom:1px solid var(--line);max-height:calc(100dvh - 88px);overflow-y:auto;overscroll-behavior:contain;box-shadow:0 10px 14px #3516410a}
+  .skip{z-index:11}
+}
+
+.footer-bottom{flex-wrap:wrap;gap:15px}.site-credit{text-decoration:underline;text-underline-offset:3px}.site-credit:hover{color:var(--plum)}

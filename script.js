@@ -65,3 +65,40 @@ track.addEventListener('touchend', event => {
 }, { passive: true });
 track.addEventListener('touchcancel', () => { touchStart = null; });
 showSlide(0);
+
+// A disclosure menu keeps normal link and keyboard behavior.
+const siteHeader = document.querySelector('header');
+const menuToggle = document.querySelector('.menu-toggle');
+const mainNavigation = document.querySelector('#main-navigation');
+const mobileNavigation = window.matchMedia('(max-width: 760px)');
+function closeMenu(returnFocus = false) {
+  siteHeader.classList.remove('menu-open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  menuToggle.setAttribute('aria-label', 'Open navigation menu');
+  if (returnFocus) menuToggle.focus({ preventScroll: true });
+}
+menuToggle.hidden = false;
+siteHeader.classList.add('menu-ready');
+document.body.classList.add('mobile-nav-ready');
+menuToggle.addEventListener('click', () => {
+  const open = menuToggle.getAttribute('aria-expanded') !== 'true';
+  siteHeader.classList.toggle('menu-open', open);
+  menuToggle.setAttribute('aria-expanded', String(open));
+  menuToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+});
+mainNavigation.addEventListener('click', event => {
+  if (mobileNavigation.matches && event.target.closest('a')) closeMenu(true);
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && siteHeader.classList.contains('menu-open')) closeMenu(true);
+});
+document.addEventListener('click', event => {
+  if (!siteHeader.contains(event.target)) closeMenu(mainNavigation.contains(document.activeElement));
+});
+siteHeader.addEventListener('focusout', event => {
+  if (!siteHeader.contains(event.relatedTarget)) closeMenu();
+});
+mobileNavigation.addEventListener('change', () => {
+  const focusWillHide = mobileNavigation.matches && mainNavigation.contains(document.activeElement);
+  closeMenu(focusWillHide);
+});

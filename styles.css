@@ -43,18 +43,18 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 }
 
 /* Author biography and expanded event lineup. */
-.speaker-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.speaker-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 .speaker-photo.portrait{width:100%;object-fit:cover;object-position:center;background:none}
 .music-card{grid-column:1/-1;display:grid;grid-template-columns:220px 1fr;gap:36px;align-items:center;padding:28px}
-.dj-photo{width:220px;height:220px;object-fit:cover;border-radius:3px}
+.performer-photo{width:220px;height:220px;object-fit:cover;border-radius:3px}
 .music-copy{max-width:600px}.music-copy .eyebrow{margin-bottom:14px}.music-copy>p:not(.eyebrow){color:#ddccdf;font-size:14px}.music-copy .music-footer{margin-top:24px}
 .author-section{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start;border-bottom:1px solid var(--line)}
 .author-portrait img{width:100%;height:auto;border-radius:180px 180px 4px 4px}.author-portrait>p{font:italic 22px/1.4 'Cormorant Garamond',Georgia,serif;color:var(--purple);text-align:center;margin:20px 0 0}
 .author-copy>p{font-size:14px;color:var(--muted)}.author-copy>.eyebrow{font-size:10px;color:var(--purple)}.author-copy>.message-intro{margin-bottom:12px;color:var(--plum)}
 .author-copy blockquote{margin:0 0 24px;padding:16px 0 16px 22px;border-left:2px solid var(--gold);font:500 24px/1.5 'Cormorant Garamond',Georgia,serif}.author-copy blockquote p{margin:0}
-@media(max-width:1050px){header nav{gap:15px;font-size:11px}.author-section{gap:35px}}
-@media(max-width:760px){.speaker-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.music-card{grid-template-columns:150px 1fr;gap:24px;padding:24px}.dj-photo{width:150px;height:180px}.author-section{grid-template-columns:1fr;gap:32px}.author-portrait{max-width:360px;margin-inline:auto}.music-copy h3{font-size:35px}.values{flex-wrap:wrap}}
-@media(max-width:480px){.music-card{grid-template-columns:1fr}.dj-photo{width:100%;height:auto;max-width:260px;margin-inline:auto}.author-copy blockquote{font-size:23px}.hero h1{font-size:clamp(52px,15vw,66px)}}
+@media(max-width:1050px){.speaker-grid{grid-template-columns:repeat(2,minmax(0,1fr))}header nav{gap:15px;font-size:11px}.author-section{gap:35px}}
+@media(max-width:760px){.speaker-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.music-card{grid-template-columns:150px 1fr;gap:24px;padding:24px}.performer-photo{width:150px;height:180px}.author-section{grid-template-columns:1fr;gap:32px}.author-portrait{max-width:360px;margin-inline:auto}.music-copy h3{font-size:35px}.values{flex-wrap:wrap}}
+@media(max-width:480px){.music-card{grid-template-columns:1fr}.performer-photo{width:100%;height:auto;max-width:260px;margin-inline:auto}.author-copy blockquote{font-size:23px}.hero h1{font-size:clamp(52px,15vw,66px)}}
 
 /* Mobile navigation remains visible if JavaScript is unavailable. */
 .menu-toggle{display:none}

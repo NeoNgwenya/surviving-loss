@@ -88,3 +88,35 @@ header .mobile-ticket-link{display:none}
 }
 
 .footer-bottom{flex-wrap:wrap;gap:15px}.site-credit{text-decoration:underline;text-underline-offset:3px}.site-credit:hover{color:var(--plum)}
+
+/* Floating navigation. */
+body{padding-top:130px}
+header.wrap{position:fixed;z-index:20;top:18px;left:50%;transform:translateX(-50%);width:min(1200px,calc(100% - 40px));height:94px;padding:0 24px;background:rgba(250,247,242,.92);border:1px solid rgba(229,220,227,.9);border-radius:18px;box-shadow:0 16px 45px rgba(53,22,65,.10);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.skip{z-index:21}
+
+/* Catering partner. */
+.catering-section{background:#eee6ed;padding-block:80px}
+.catering-layout{display:grid;grid-template-columns:minmax(280px,.8fr) 1.2fr;align-items:center;gap:clamp(45px,8vw,110px);max-width:1040px}
+.catering-photo{position:relative;max-width:410px;padding:12px}
+.catering-photo::before{content:'';position:absolute;inset:0 24px 24px 0;border:1px solid rgba(181,148,84,.7);border-radius:190px 190px 8px 8px}
+.catering-photo img{position:relative;width:100%;height:auto;aspect-ratio:498/632;object-fit:cover;object-position:center;border-radius:180px 180px 6px 6px;box-shadow:0 24px 55px rgba(53,22,65,.14)}
+.catering-copy{position:relative;max-width:520px}
+.catering-copy .eyebrow{color:var(--purple)}
+.catering-copy>p:not(.eyebrow){color:var(--muted);font-size:14px;max-width:470px}
+.catering-copy .catering-signoff{font:italic 23px/1.4 'Cormorant Garamond',Georgia,serif;color:var(--plum);margin-top:28px}
+.catering-link{margin-top:4px;font-weight:600}
+.catering-mark{position:absolute;right:10px;bottom:-34px;color:var(--gold);font-size:52px;opacity:.75}
+
+@media(max-width:1050px){header.wrap{padding-inline:18px}.catering-layout{gap:50px}}
+@media(max-width:760px){
+  body,body.mobile-nav-ready{padding-top:104px}
+  html{scroll-padding-top:104px}
+  header.wrap,header.wrap.menu-ready{top:12px;left:12px;right:12px;transform:none;width:calc(100% - 24px);height:76px;min-height:76px;padding:10px 14px;border-radius:16px}
+  header.menu-ready #main-navigation{top:calc(100% + 8px);left:0;width:100%;padding:10px 16px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(250,247,242,.98);box-shadow:0 16px 35px rgba(53,22,65,.12)}
+  .catering-section{padding-block:60px}
+  .catering-layout{grid-template-columns:1fr;gap:36px}
+  .catering-photo{width:min(360px,92%);margin-inline:auto}
+  .catering-copy{text-align:center;margin-inline:auto}
+  .catering-copy>p:not(.eyebrow){margin-inline:auto}
+  .catering-mark{display:none}
+}

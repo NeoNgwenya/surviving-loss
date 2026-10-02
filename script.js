@@ -1,6 +1,6 @@
 // Enhance the existing content; everything stays readable without JavaScript.
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const revealTargets = document.querySelectorAll('.experience > *, .section-heading, .speaker-grid > *, .details > *, .ticket-layout > *, .book-section, .faq-section');
+const revealTargets = document.querySelectorAll('.experience > *, .section-heading, .speaker-grid > *, .details > *, .catering-layout > *, .ticket-layout > *, .book-section, .faq-section');
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {

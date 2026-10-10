@@ -9,7 +9,7 @@ http.createServer((req, res) => {
   catch { res.writeHead(400).end('Bad request'); return; }
   const file = path.resolve(root, '.' + (pathname === '/' ? '/index.html' : pathname));
   const relative = path.relative(root, file);
-  if (relative.startsWith('..') || path.isAbsolute(relative) || (!['index.html', 'styles.css', 'script.js'].includes(relative) && !/^images[\\/][^\\/]+\.jpeg$/.test(relative))) {
+  if (relative.startsWith('..') || path.isAbsolute(relative) || (!['index.html', 'styles.css', 'script.js'].includes(relative) && !/^images(?:[\\/][^\\/]+)+\.jpeg$/.test(relative))) {
     res.writeHead(404).end('Not found'); return;
   }
   fs.readFile(file, (error, data) => {

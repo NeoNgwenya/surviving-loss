@@ -30,19 +30,68 @@ promise.setAttribute('role', 'region');
 promise.setAttribute('aria-roledescription', 'carousel');
 promise.setAttribute('aria-label', 'Messages of hope');
 track.id = 'hope-slides';
-track.setAttribute('aria-live', 'polite');
 track.setAttribute('aria-atomic', 'true');
 const controls = document.createElement('nav');
 controls.className = 'carousel-controls';
 controls.setAttribute('aria-label', 'Messages of hope controls');
-controls.innerHTML = `<button type="button" class="carousel-arrow" aria-label="Previous message" aria-controls="hope-slides">←</button><span class="carousel-dots">${slides.map((slide, index) => `<button type="button" aria-label="Show message ${index + 1}: ${slide.textContent}" aria-controls="hope-slides"><span></span></button>`).join('')}</span><button type="button" class="carousel-arrow" aria-label="Next message" aria-controls="hope-slides">→</button>`;
+controls.innerHTML = `
+  <button type="button" class="carousel-arrow carousel-playback" aria-controls="hope-slides"></button>
+  <button type="button" class="carousel-arrow" aria-label="Previous message" aria-controls="hope-slides">←</button>
+  <span class="carousel-dots">${slides.map((slide, index) => `<button type="button" aria-label="Show message ${index + 1}: ${slide.textContent}" aria-controls="hope-slides"><span></span></button>`).join('')}</span>
+  <button type="button" class="carousel-arrow" aria-label="Next message" aria-controls="hope-slides">→</button>`;
 track.after(controls);
 const dots = [...controls.querySelectorAll('.carousel-dots button')];
+const playback = controls.querySelector('.carousel-playback');
+let autoplayEnabled = !reducedMotion.matches;
+let carouselVisible = !('IntersectionObserver' in window);
+let carouselHovered = false;
+let autoplayTimer;
+
+function updateAutoplay() {
+  clearTimeout(autoplayTimer);
+  const playing = autoplayEnabled && carouselVisible && !carouselHovered && !document.hidden;
+  track.setAttribute('aria-live', playing ? 'off' : 'polite');
+  if (playing) autoplayTimer = setTimeout(() => showSlide(current + 1), 6000);
+}
+
+function setAutoplay(enabled) {
+  autoplayEnabled = enabled;
+  playback.textContent = enabled ? 'Ⅱ' : '▶';
+  playback.setAttribute('aria-label', enabled ? 'Pause autoplay' : 'Start autoplay');
+  updateAutoplay();
+}
+
 function showSlide(index) {
   current = (index + slides.length) % slides.length;
   slides.forEach((slide, i) => { slide.hidden = i !== current; });
   dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === current)));
+  updateAutoplay();
 }
+
+if ('IntersectionObserver' in window) {
+  const carouselObserver = new IntersectionObserver(([entry]) => {
+    carouselVisible = entry.isIntersecting;
+    updateAutoplay();
+  });
+  carouselObserver.observe(promise);
+}
+promise.addEventListener('pointerenter', event => {
+  if (event.pointerType !== 'mouse') return;
+  carouselHovered = true;
+  updateAutoplay();
+});
+promise.addEventListener('pointerleave', () => {
+  carouselHovered = false;
+  updateAutoplay();
+});
+promise.addEventListener('focusin', event => {
+  if (event.target.matches(':focus-visible')) setAutoplay(false);
+});
+document.addEventListener('visibilitychange', updateAutoplay);
+reducedMotion.addEventListener('change', () => {
+  if (reducedMotion.matches) setAutoplay(false);
+});
+playback.addEventListener('click', () => setAutoplay(!autoplayEnabled));
 controls.querySelector('[aria-label="Previous message"]').addEventListener('click', () => showSlide(current - 1));
 controls.querySelector('[aria-label="Next message"]').addEventListener('click', () => showSlide(current + 1));
 dots.forEach((dot, i) => dot.addEventListener('click', () => showSlide(i)));
@@ -65,6 +114,7 @@ track.addEventListener('touchend', event => {
 }, { passive: true });
 track.addEventListener('touchcancel', () => { touchStart = null; });
 showSlide(0);
+setAutoplay(autoplayEnabled);
 
 // A disclosure menu keeps normal link and keyboard behavior.
 const siteHeader = document.querySelector('header');

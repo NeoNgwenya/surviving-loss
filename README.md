@@ -10,4 +10,4 @@ Ticket buttons open a WhatsApp enquiry to Topsy; telephone links initiate a call
 
 Development branch: `feature/dev`.
 
-Motion enhancements include finite hero animations, scroll reveals, and a manual messages-of-hope carousel with arrow buttons, dots, keyboard navigation and touch swipes. Reduced-motion preferences disable animation; without JavaScript all messages remain visible.
+Motion enhancements include finite hero animations, scroll reveals, and a messages-of-hope carousel that advances every six seconds while visible. The carousel has a pause button, arrow buttons, dots, keyboard navigation and touch swipes. Reduced-motion preferences disable animations and start the carousel paused. Without JavaScript, all messages remain visible.
